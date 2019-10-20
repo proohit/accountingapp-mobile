@@ -1,25 +1,40 @@
-import React from 'react';
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
 import {
   Title,
   Container,
-  Tab,
-  Tabs,
   Header,
   Body,
   Left,
-  Right
+  Right,
 } from 'native-base'
-import * as Font from 'expo-font'
-import { Platform } from '@unimodules/core';
+import { AppLoading } from 'expo'
+import TabSection from './src/TabSection'
 
-export default class App extends React.Component {
+export default class App extends Component {
+
+
+  state = {
+    fontLoaded: false
+  };
+
+
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+    });
+    this.setState({ fontLoaded: true });
+  }
+
   render() {
+    if (!this.state.fontLoaded) {
+      return <AppLoading />
+    }
     return (
+
       <Container>
         <Header>
           <Left>
-
           </Left>
           <Body>
             <Title>AccountingApp</Title>
@@ -28,14 +43,9 @@ export default class App extends React.Component {
 
           </Right>
         </Header>
-        <Tabs>
-          <Tab heading='Tab1'>
 
-          </Tab>
-          <Tab heading='Tab2'>
-
-          </Tab>
-        </Tabs>
+        <TabSection>
+        </TabSection>
 
       </Container>
     );
