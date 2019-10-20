@@ -1,19 +1,44 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import {
+  Title,
+  Container,
+  Tab,
+  Tabs,
+  Header,
+  Body,
+  Left,
+  Right
+} from 'native-base'
+import * as Font from 'expo-font'
+import { Platform } from '@unimodules/core';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+export default class App extends React.Component {
+  render() {
+    return (
+      <Container>
+        <Header>
+          <Left>
+
+          </Left>
+          <Body>
+            <Title>AccountingApp</Title>
+          </Body>
+          <Right>
+
+          </Right>
+        </Header>
+        <Tabs>
+          <Tab heading='Tab1'>
+
+          </Tab>
+          <Tab heading='Tab2'>
+
+          </Tab>
+        </Tabs>
+
+      </Container>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
