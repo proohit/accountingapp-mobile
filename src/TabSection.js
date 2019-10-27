@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { Tabs, Tab, Button } from 'native-base'
 import RecordList from './RecordList'
-import * as DocumentPicker from 'expo-document-picker'
+import {selectAllRecords, deleteAllRecords, openFile} from '../database/Database'
 
- test = () => {
-    const res = DocumentPicker.getDocumentAsync().then( result => console.log(result.uri));
-}
+
 export default class TabSection extends Component {
-    
     render() {
+
+
         return (
 
             <Tabs>
@@ -17,7 +16,12 @@ export default class TabSection extends Component {
                     </RecordList>
                 </Tab>
                 <Tab heading='Tab2'>
-                    <Button onPress={test}></Button>
+                    <Button onPress={async () => {
+                        //insert file operations here
+                        // await openFile();
+                        // await deleteAllRecords()
+                        // await selectAllRecords()
+                    }}></Button>
                 </Tab>
             </Tabs>
         )
