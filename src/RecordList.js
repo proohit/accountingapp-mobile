@@ -6,6 +6,7 @@ import {
     List,
     ListItem,
 } from 'native-base'
+import { deleteAllRecords, getAllMonths, openFile, selectAllRecords } from '../database/Database'
 
 export default class RecordList extends Component {
     state = {

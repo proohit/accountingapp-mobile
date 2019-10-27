@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Tabs, Tab, Button } from 'native-base'
 import RecordList from './RecordList'
-import {selectAllRecords, deleteAllRecords, openFile} from '../database/Database'
+import {selectAllRecords, deleteAllRecords, openFile, overrideDb} from '../database/Database'
 
 
 export default class TabSection extends Component {
@@ -21,6 +21,7 @@ export default class TabSection extends Component {
                         // await openFile();
                         // await deleteAllRecords()
                         // await selectAllRecords()
+                        // await overrideDb()
                     }}></Button>
                 </Tab>
             </Tabs>

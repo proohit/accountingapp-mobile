@@ -1,7 +1,20 @@
 import * as DocumentPicker from 'expo-document-picker'
 import * as SQLite from 'expo-sqlite'
 import * as FileSystem from 'expo-file-system'
-let db; 
+let db;
+const sqliteDirectory = `${FileSystem.documentDirectory}SQLite`;
+const pathToDownloadTo = `${sqliteDirectory}/sample1.db`;
+let fileUri = ''
+
+
+export let getAllMonths = async () => {
+    db.transaction(txn => {
+        console.log('txn', txn);
+        txn.executeSql("select DISTINCT strftime('%Y-%m',timestamp) as month from Record ORDER BY month desc", [], (txn, rs) => {
+            return rs.rows;
+        })
+    })
+}
 export let selectAllRecords = async () => {
     console.log(`select command: ${db}`);
     db.transaction(txn => {
@@ -22,9 +35,13 @@ export let deleteAllRecords = async () => {
         })
     })
 }
-
-export let openFile = async() => {
-    const sqliteDirectory = `${FileSystem.documentDirectory}SQLite`;
+export let overrideDb = async () => {
+    await FileSystem.downloadAsync(
+        pathToDownloadTo,
+        fileUri
+    );
+}
+export let openFile = async () => {
 
     const { exists, isDirectory } = await FileSystem.getInfoAsync(
         sqliteDirectory
@@ -34,16 +51,16 @@ export let openFile = async() => {
         await FileSystem.makeDirectoryAsync(sqliteDirectory);
     }
 
-    const pathToDownloadTo = `${sqliteDirectory}/sample1.db`;
-
     const result = await DocumentPicker.getDocumentAsync({ copyToCacheDirectory: false });
-    console.log(result.uri);
+
+    fileUri = result.uri
+
     const copyResult = await FileSystem.copyAsync({
-        from: result.uri,
+        from: fileUri,
         to: pathToDownloadTo,
     });
 
     db = SQLite.openDatabase('sample1.db');
-    
+
     //  console.log('path',pathToDownloadTo');
 }
